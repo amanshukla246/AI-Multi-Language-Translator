@@ -1,0 +1,157 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Multi Language Translator</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<div class="background-animation">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+</div>
+
+<div class="container">
+
+    <div class="hero-section">
+        <h1>🌍 AI Multilanguage Translator</h1>
+        <p>Translate text & voice instantly with AI</p>
+    </div>
+
+    <div class="translator-card">
+
+        <div class="tabs">
+            <button class="tab active">📝 Text Translator</button>
+            <button class="tab">🎤 Voice Translator</button>
+        </div>
+
+        <form method="POST">
+
+            <textarea
+                name="text"
+                placeholder="Type something here..."
+            >{{ input_text }}</textarea>
+
+            <div class="language-row">
+
+                <select name="source_language">
+                    <option>English</option>
+                    <option>Hindi</option>
+                    <option>French</option>
+                    <option>Spanish</option>
+                </select>
+
+                <button type="button" class="swap-btn">⇄</button>
+
+                <select name="language">
+                    <option value="en">English</option>
+                    <option value="hi">Hindi</option>
+                    <option value="gu">Gujarati</option>
+                    <option value="mr">Marathi</option>
+                    <option value="ta">Tamil</option>
+                    <option value="bn">Bengali</option>
+                    <option value="pa">Punjabi</option>
+                    <option value="fr">French</option>
+                    <option value="es">Spanish</option>
+                </select>
+
+            </div>
+
+            <div class="button-row">
+
+                <button type="submit" class="translate-btn">
+                    ✨ Translate
+                </button>
+
+                <button type="submit" name="voice" class="voice-btn">
+                    🎤 Voice Input
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+
+    {% if translated_text %}
+
+    <div class="result-card hover-card">
+
+        <div class="result-top">
+            <div>
+                <h3>✨ Translation</h3>
+                <p>{{ translated_text }}</p>
+            </div>
+
+            <div class="icon-buttons">
+                <button>🔊</button>
+                <button onclick="copyText()">📋</button>
+                <button>↗</button>
+            </div>
+        </div>
+
+        {% if audio_file %}
+
+        <div class="audio-section">
+            <audio controls autoplay>
+                <source src="{{ audio_file }}?v={{ range(1,100000)|random }}" type="audio/mpeg">
+            </audio>
+        </div>
+
+        {% endif %}
+
+    </div>
+
+    {% endif %}
+
+
+    <div class="features-grid">
+
+        <div class="feature-card hover-card">
+            <div class="feature-icon purple">⚡</div>
+            <h3>Instant Translation</h3>
+            <p>Get translations instantly in real-time</p>
+        </div>
+
+        <div class="feature-card hover-card">
+            <div class="feature-icon blue">🛡</div>
+            <h3>Secure & Private</h3>
+            <p>Your data is 100% secure</p>
+        </div>
+
+        <div class="feature-card hover-card">
+            <div class="feature-icon green">🤖</div>
+            <h3>AI Powered</h3>
+            <p>Advanced AI translation technology</p>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+function copyText() {
+    const text = document.querySelector('.result-top p').innerText;
+    navigator.clipboard.writeText(text);
+    alert('Copied Successfully!');
+}
+
+</script>
+
+</body>
+</html>
